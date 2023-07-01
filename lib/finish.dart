@@ -22,6 +22,7 @@ class _MitraPageState extends State<FinishPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 40, left: 26, right: 26),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: SingleChildScrollView(
