@@ -1,17 +1,23 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, avoid_init_to_null, sized_box_for_whitespace
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, avoid_init_to_null, sized_box_for_whitespace, non_constant_identifier_names
 import 'package:flutter/material.dart';
-
+import 'finish.dart';
 class MitraPage extends StatefulWidget {
+  final double jumlah;
+  final String username;
+
+  MitraPage({required this.jumlah,required this.username});
+
   @override
-  _MyPageState createState() => _MyPageState();
+  _MitraPageState createState() => _MitraPageState();
 }
 
-class _MyPageState extends State<MitraPage> {
-  String? selectedValue = null; // Set initial value to null for placeholder
+class _MitraPageState extends State<MitraPage> {
+  String? selectedMitra = null;
+  String? selectedLocation = null;
 
   List<DropdownMenuItem<String>> dropdownItems = [
     DropdownMenuItem(
-      value: null, // Set value to null for placeholder
+      value: null,
       child: Text(
         'Pilih Mitra',
         style: TextStyle(
@@ -25,9 +31,29 @@ class _MyPageState extends State<MitraPage> {
     ),
     DropdownMenuItem(
       value: 'Sampah Desa',
-      child: Text('Sampah desa'),
+      child: Text('Sampah Desa'),
     ),
-  ]; // Added dropdownItems list
+  ];
+
+  List<DropdownMenuItem<String>> dropdownItems2 = [
+    DropdownMenuItem(
+      value: null,
+      child: Text(
+        'Pilih Lokasi',
+        style: TextStyle(
+          color: Colors.grey,
+        ),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'Jogja',
+      child: Text('Jogja'),
+    ),
+    DropdownMenuItem(
+      value: 'Seturan',
+      child: Text('Seturan'),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +72,7 @@ class _MyPageState extends State<MitraPage> {
                     children: [
                       Center(
                         child: Text(
-                          'Silahkan Masukkan Data Sampahmu Disini',
+                          'Silahkan Masukkan Data Mitra Disini',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -58,20 +84,23 @@ class _MyPageState extends State<MitraPage> {
                       SizedBox(
                         height: 50,
                       ),
-                      TextField(
+                      DropdownButtonFormField<String>(
                         decoration: InputDecoration(
-                          labelText: 'Nama Sampah',
-                          filled: true,
-                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0,
-                            horizontal: 16.0,
-                          ),
+                          filled: true,
+                          fillColor: Colors.white,
                         ),
+                        dropdownColor: Colors.white,
+                        value: selectedMitra, // Use selectedMitra here
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedMitra = newValue!;
+                          });
+                        },
+                        items: dropdownItems,
                       ),
                       SizedBox(
                         height: 10,
@@ -86,63 +115,39 @@ class _MyPageState extends State<MitraPage> {
                           fillColor: Colors.white,
                         ),
                         dropdownColor: Colors.white,
-                        value: selectedValue,
+                        value: selectedLocation, // Use selectedLocation here
                         onChanged: (String? newValue) {
                           setState(() {
-                            selectedValue = newValue!;
+                            selectedLocation = newValue!;
                           });
                         },
-                        items: dropdownItems,
+                        items: dropdownItems2,
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Berat Sampah (kg)',
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0,
-                            horizontal: 16.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Rp.',
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 14.0,
-                            horizontal: 16.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
                       Container(
-                        width: double.infinity, // Set width to full
+                        width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FinishPage(jumlah: widget.jumlah, username: widget.username,),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 31, 121, 34),
-                              foregroundColor: Colors.white,
-                              minimumSize: Size(152, 38)),
+                            backgroundColor: Color.fromARGB(255, 31, 121, 34),
+                            foregroundColor: Colors.white,
+                            minimumSize: Size(152, 38),
+                          ),
                           child: Text(
-                            'Next',
+                            'Selesai',
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, avoid_init_to_null, sized_box_for_whitespace
 import 'package:flutter/material.dart';
+import 'mitra.dart';
 
 class HomePage extends StatefulWidget {
   final String username;
@@ -11,16 +12,18 @@ class HomePage extends StatefulWidget {
   }
 
   @override
-  _MyPageState createState() => _MyPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyPageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   void logout(BuildContext context) {
     Navigator.pop(context);
   }
 
   String? selectedValue = null; // Set initial value to null for placeholder
   double price = 0;
+  double weight = 0;
+  double jumlah = 0; // Added jumlah variable
 
   List<DropdownMenuItem<String>> dropdownItems = [
     DropdownMenuItem(
@@ -41,6 +44,10 @@ class _MyPageState extends State<HomePage> {
       child: Text('Anorganik'),
     ),
   ]; // Added dropdownItems list
+
+  void calculateJumlah() {
+    jumlah = weight * price;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +163,11 @@ class _MyPageState extends State<HomePage> {
                             horizontal: 16.0,
                           ),
                         ),
+                        onChanged: (value) {
+                          setState(() {
+                            weight = double.tryParse(value) ?? 0;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 10,
@@ -174,12 +186,21 @@ class _MyPageState extends State<HomePage> {
                             horizontal: 16.0,
                           ),
                         ),
+                        enabled: false,
                       ),
                       SizedBox(height: 10),
                       Container(
                         width: double.infinity, // Set width to full
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            calculateJumlah(); // Calculate jumlah before navigating
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MitraPage(username: widget.username, jumlah: jumlah), // Pass the jumlah to MitraPage
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromARGB(255, 31, 121, 34),
                               foregroundColor: Colors.white,
