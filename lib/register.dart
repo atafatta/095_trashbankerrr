@@ -1,12 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, must_be_immutable
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'register.dart';
 
-class LoginPage extends StatelessWidget {
-  String user = 'atafatta';
-  String password = 'atafatta';
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +13,8 @@ class LoginPage extends StatelessWidget {
             height: 70,
           ),
           SizedBox(
-            width: 150,
-            height: 200,
+            width: 100,
+            height: 145,
             child: Image.asset('assets/images/people.png'),
           ),
           SizedBox(
@@ -38,7 +34,7 @@ class LoginPage extends StatelessWidget {
                 child: ListView(
                   children: [
                     Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -48,7 +44,7 @@ class LoginPage extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      'Username',
+                      'Nama',
                       style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                     TextField(
@@ -59,10 +55,27 @@ class LoginPage extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 14.0),
+                        contentPadding: EdgeInsets.symmetric(vertical: 12.0),
                       ),
                     ),
-                    SizedBox(height: 16.0),
+                    SizedBox(height: 10.0),
+                    Text(
+                      'Email',
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                    TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 12.0),
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
                     Text(
                       'Password',
                       style: TextStyle(fontSize: 14, color: Colors.white),
@@ -76,7 +89,24 @@ class LoginPage extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 14.0),
+                        contentPadding: EdgeInsets.symmetric(vertical: 12.0),
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(
+                      'Alamat',
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                    TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 12.0),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -87,40 +117,11 @@ class LoginPage extends StatelessWidget {
                           foregroundColor: Colors.white,
                           minimumSize: Size(152, 38)),
                       child: Text(
-                        'Log In',
+                        'Daftar',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Belum Punya Akun ',
-                          style: TextStyle(fontSize: 14, color: Colors.white),
-                          children: [
-                            TextSpan(
-                              text: 'Daftar',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.yellow,
-                                decoration: TextDecoration.underline,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RegisterPage()),
-                                  );
-                                },
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
