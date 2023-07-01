@@ -1,12 +1,55 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, must_be_immutable
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, must_be_immutable, library_private_types_in_public_api
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'register.dart';
+import 'home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   String user = 'atafatta';
   String password = 'atafatta';
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void login() {
+    String inputUsername = usernameController.text;
+    String inputPassword = passwordController.text;
+
+    if (inputUsername == user && inputPassword == password) {
+      // Berhasil login, alihkan ke halaman dashboard dengan mengirimkan data nama pengguna
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(username: inputUsername),
+        ),
+      );
+    } else {
+      // Gagal login, tampilkan pesan atau lakukan tindakan lainnya
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Login Gagal'),
+            content: Text('Username atau password salah.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +95,7 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                     TextField(
+                      controller: usernameController,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -59,7 +103,7 @@ class LoginPage extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 14.0),
+                        contentPadding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -68,6 +112,7 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
                     TextField(
+                      controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         filled: true,
@@ -76,12 +121,12 @@ class LoginPage extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 14.0),
+                        contentPadding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
                       ),
                     ),
                     SizedBox(height: 16.0),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: login,
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 31, 121, 34),
                           foregroundColor: Colors.white,
