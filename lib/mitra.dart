@@ -1,44 +1,31 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, avoid_init_to_null, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  final String username;
-
-  HomePage({required this.username});
-
-  void logout(BuildContext context) {
-    Navigator.pop(context);
-  }
-
+class MitraPage extends StatefulWidget {
   @override
   _MyPageState createState() => _MyPageState();
 }
 
-class _MyPageState extends State<HomePage> {
-  void logout(BuildContext context) {
-    Navigator.pop(context);
-  }
-
+class _MyPageState extends State<MitraPage> {
   String? selectedValue = null; // Set initial value to null for placeholder
-  double price = 0;
 
   List<DropdownMenuItem<String>> dropdownItems = [
     DropdownMenuItem(
       value: null, // Set value to null for placeholder
       child: Text(
-        'Pilih kategori',
+        'Pilih Mitra',
         style: TextStyle(
           color: Colors.grey,
         ),
       ),
     ),
     DropdownMenuItem(
-      value: 'Organik',
-      child: Text('Organik'),
+      value: 'Sampah Indonesia',
+      child: Text('Sampah Indonesia'),
     ),
     DropdownMenuItem(
-      value: 'Anorganik',
-      child: Text('Anorganik'),
+      value: 'Sampah Desa',
+      child: Text('Sampah desa'),
     ),
   ]; // Added dropdownItems list
 
@@ -53,33 +40,6 @@ class _MyPageState extends State<HomePage> {
           padding: const EdgeInsets.only(top: 40, left: 26, right: 26),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Halo ${widget.username}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () => logout(context),
-                    child: Text(
-                      'LogOut',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -130,11 +90,6 @@ class _MyPageState extends State<HomePage> {
                         onChanged: (String? newValue) {
                           setState(() {
                             selectedValue = newValue!;
-                            if (selectedValue == 'Organik') {
-                              price = 3000;
-                            } else if (selectedValue == 'Anorganik') {
-                              price = 6000;
-                            }
                           });
                         },
                         items: dropdownItems,
@@ -162,7 +117,7 @@ class _MyPageState extends State<HomePage> {
                       ),
                       TextField(
                         decoration: InputDecoration(
-                          labelText: 'Rp. ${price.toInt()}',
+                          labelText: 'Rp.',
                           filled: true,
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
