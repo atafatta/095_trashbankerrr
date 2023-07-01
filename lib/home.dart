@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, avoid_init_to_null, sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'mitra.dart';
-
+import 'login.dart';
 class HomePage extends StatefulWidget {
   final String username;
 
@@ -72,7 +72,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () => logout(context),
+                    onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
+                          },
                     child: Text(
                       'LogOut',
                       style: TextStyle(
